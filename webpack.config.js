@@ -1,18 +1,26 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
+
   entry: "./src/game.ts",
+
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+
   resolve: {
     extensions: [".ts", ".js"],
+    alias:{
+      "@core":path.resolve(__dirname,"src/core"),
+      "@game":path.resolve(__dirname,"src/game"),
+      "@states":path.resolve(__dirname,"src/states"),
+    }
   },
+
   module: {
     rules: [
       {
@@ -22,6 +30,7 @@ module.exports = {
       }
     ],
   },
+
   devServer: {
     static: {
       directory: path.resolve(__dirname, "dist"),
@@ -30,18 +39,13 @@ module.exports = {
     port: 9000,
     open: true,
   },
+
   plugins: [
     new CleanWebpackPlugin(),
+
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       inject: "body",
     }),
-    new CopyWebpackPlugin({
-    //   patterns: [
-    //     { from: "0_LoadingScreen", to: "0_LoadingScreen" },
-    //     { from: "1_MainScreen", to: "1_MainScreen" },
-    //     { from: "manifest.json", to: "manifest.json" }
-    //   ]
-    })
-  ]
+  ],
 };
