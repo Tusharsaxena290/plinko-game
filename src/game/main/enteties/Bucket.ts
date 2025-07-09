@@ -1,0 +1,32 @@
+import Phaser  from "phaser";
+export class Bucket extends Phaser.GameObjects.Container{
+    public readonly multiplier :number;
+    private sceneRef:Phaser.Scene;
+    constructor(
+        scene:Phaser.Scene,
+        x:number,
+        y:number,
+        width:number,
+        height:number,
+        multiplier:number
+    ){
+        super(scene,x,y);
+        this.sceneRef=scene;
+        this.multiplier=multiplier;
+        this.createBucket();
+        this.createMultiplier();
+        scene.add.existing(this);
+    }
+
+    protected createBucket():void{
+        const bucket=this.sceneRef.add.rectangle(0,0,this.width-4,this.height,0x222222).setStrokeStyle(1,0xffffff);
+        this.add(bucket);
+    }
+    private createMultiplier(): void {
+    const label = this.sceneRef.add.text(0, 0, `${this.multiplier}x`, {
+      fontSize: "20px",
+      color: "#ffffff",
+    }).setOrigin(0.5);
+    this.add(label);
+  }
+}

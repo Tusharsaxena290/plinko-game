@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import { GameFSM } from "@core/GameStateManager";
 import { GameState } from "@states/GameState";
+import { Peg } from "./enteties/Peg";
+import { Bucket } from "./enteties/Bucket";
 
 export class MainGameScene extends Phaser.Scene {
   constructor() {
@@ -29,8 +31,8 @@ export class MainGameScene extends Phaser.Scene {
 
       for (let col = 0; col < cols; col++) {
         const x = startX + col * pegSpacing;
-
-        this.add.circle(x, y, pegRadius, 0xffffff);
+        new Peg(this,x,y);
+       // this.add.circle(x, y, pegRadius, 0xffffff);
       }
     }
 
@@ -43,7 +45,8 @@ export class MainGameScene extends Phaser.Scene {
 
     for (let i = 0; i < bucketCount; i++) {
       const x = startBucketX + i * bucketWidth;
-      this.add.rectangle(x, bucketY, bucketWidth - 4, bucketHeight, 0x222222).setStrokeStyle(1, 0xffffff);
+      //this.add.rectangle(x, bucketY, bucketWidth - 4, bucketHeight, 0x222222).setStrokeStyle(1, 0xffffff);
+      new Bucket(this,x,680,width,height,i+1);
 
       this.add.text(x, bucketY, `${i + 1}x`, {
         fontSize: "20px",
